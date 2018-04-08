@@ -1,0 +1,56 @@
+app.controller( "messagesCtrl", function( $scope, messagesService ){
+    var msgToDel                              = null;
+    var msgToUpd                              = null;
+    $scope.messages                           = messagesService.messagesProp;
+    $scope.filterMessagesByTitleAndDetailFunc = function( message ){
+        var res = false;
+        var str = $scope.filterInTitleDetailsInput;
+
+        res = message.isTitleIncludeStr( str ) || message.isDetailsIncludeStr( str );
+
+        return res;
+    };
+    $scope.setMessageForRmvFunc = function( message ){
+        msgToDel = message;
+    };
+    $scope.removeMessageFunc = function(){
+        if( msgToDel != null )
+        {
+            messagesService.rmvMessageMethod( msgToDel );
+
+            msgToDel = "";
+        }
+    }
+    $scope.cancelMsgFunc = function(){
+        initInputsMessage();
+    };
+    $scope.createMessageFunc = function(){
+        messagesService.createNewMessageMethod( $scope.messageTitleInput, $scope.messageDetailsInput, $scope.messagePriorityInput, $scope.messageImageInput );
+        initInputsMessage();
+    };
+    $scope.fillInputsForUpdFunc = function( message ){
+        $scope.messageTitleInput    = message.getTitle();
+        $scope.messageDetailsInput  = message.getDetails();
+        $scope.messagePriorityInput = message.getPriority();
+        $scope.messageImageInput    = message.getImg();
+        msgToUpd                    = message;
+    };
+    $scope.updateMessageFunc = function(){
+        messagesService.updateMessageMethod( msgToUpd, $scope.messageTitleInput, $scope.messageDetailsInput, $scope.messagePriorityInput, $scope.messageImageInput );
+        initInputsMessage();
+
+        msgToUpd = "";
+    };
+
+    function initInputsMessage(){
+        $scope.messageTitleInput         = "";
+        $scope.messageDetailsInput       = "";
+        $scope.messagePriorityInput      = "Important";
+        $scope.messageImageInput         = ""; 
+    }
+
+    $scope.filterInTitleDetailsInput = "";
+    $scope.orderByInput              = "creationDate";
+    
+    initInputsMessage();
+});
