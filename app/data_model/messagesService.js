@@ -1,9 +1,10 @@
-app.factory( "messagesService", function( dateService ){
-    var messages = [];
-    var message1 = null;
-    var message2 = null;
-    var message3 = null;
-    var counter  = 0;
+app.factory( "messagesService", function( $http, $q, dateService ){
+    var messages         = [];
+    var message1         = null;
+    var message2         = null;
+    var message3         = null;
+    var counter          = 0;
+    var loadMessagesFlag = false;
 
     function Message( title, creationDate, img, details, priority )
     {
@@ -37,6 +38,44 @@ app.factory( "messagesService", function( dateService ){
 
             return details.toUpperCase().includes( str.toUpperCase() );
         }
+    }
+
+    function loadMessagesFunc()
+    {
+        var asyncLoad = $q.defer();
+
+        if( loadMessagesFlag )
+        {
+            asyncLoad.resolve( messages );
+        }
+        else
+        {
+            loadMessagesFlag = true;
+
+            $http.get( "/app/messages/messages.json" ).then( function( response ){
+                //on success
+                var i = 0;
+
+                //We cannot do here messages = [] because the outside already hold actors and if we do that we change the pointer. For example two collectors that use this service. The first collector call to this function and get an array of actors. Then the second collector call to this function and do messages = [] and by this give a new pointer to messages so the first collector still looked on the old pointer of messages.
+                //so to empty the array instead of doing messages = [] do actors.splice( 0, messages.length )
+
+                messages.splice( 0, messages.length );
+
+                for( i = 0; i < response.data.length; i++ ){
+                    messages.push( new Message( response.data[i].title, response.data[i].creationDate, response.data[i].img, response.data[i].details, response.data[i].priority ) );
+                }
+        
+                asyncLoad.resolve( messages );
+            }, function( response ){
+                //on failure
+                loadMessagesFlag = false;
+
+                alert( "Error:" + response );
+                asyncLoad.reject( messages ); 
+            }); 
+        }
+
+        return asyncLoad.promise;
     }
 
     function rmvMessageFunc( message )
@@ -83,16 +122,16 @@ app.factory( "messagesService", function( dateService ){
         }
     }
 
-    message1 = new Message( "New classes in the gym", "2018-03-14", "/assets/images/messages/gym.jpg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Information" );
+   /* message1 = new Message( "New classes in the gym", "2018-03-14", "/assets/images/messages/gym.jpg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Information" );
     message2 = new Message( "Dont step on the grass!", "2018-02-01", "/assets/images/messages/grass.jpeg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Important" );
     message3 = new Message( "Closing the pool for maintanence", "2018-01-08", "/assets/images/messages/pool.jpg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Information" );
 
     messages.push( message1 );
     messages.push( message2 );
-    messages.push( message3 );
+    messages.push( message3 );*/
 
     return{
-        messagesProp: messages,
+        loadMessagesMethod: loadMessagesFunc,
         rmvMessageMethod: rmvMessageFunc,
         createNewMessageMethod: crtNewMessageFunc,
         updateMessageMethod: updMessageFunc

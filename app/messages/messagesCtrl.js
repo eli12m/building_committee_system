@@ -1,7 +1,6 @@
 app.controller( "messagesCtrl", function( $scope, messagesService ){
     var msgToDel                              = null;
     var msgToUpd                              = null;
-    $scope.messages                           = messagesService.messagesProp;
     $scope.filterMessagesByTitleAndDetailFunc = function( message ){
         var res = false;
         var str = $scope.filterInTitleDetailsInput;
@@ -42,6 +41,15 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
         msgToUpd = "";
     };
 
+    $scope.filterInTitleDetailsInput = "";
+    $scope.orderByInput              = "creationDate";
+
+    messagesService.loadMessagesMethod().then( function( messages ){
+        $scope.messages = messages;
+    }, function( messages ){
+        alert( "Error:" ); 
+    });
+
     function initInputsMessage(){
         $scope.messageTitleInput         = "";
         $scope.messageDetailsInput       = "";
@@ -49,8 +57,5 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
         $scope.messageImageInput         = ""; 
     }
 
-    $scope.filterInTitleDetailsInput = "";
-    $scope.orderByInput              = "creationDate";
-    
     initInputsMessage();
 });
