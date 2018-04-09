@@ -4,7 +4,65 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="form-group">
-                <input type="text" class="form-control round-frame" id="filter-text" placeholder="Filter" ng-model="filterInput">
+                <input type="text" class="form-control round-frame" id="filter-text" placeholder="Filter" ng-model="filterTenantInput">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12 clearfix">
+            <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+            <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newTenantModal" onClick="return false;">New Tenant</a>
+        </div>
+    </div>
+    <div class="modal fade" id="newTenantModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Tenant</h4>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelTenantFunc()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body container">
+                    <div class="form-group row">
+                        <label for="tenantFirstName" class="col-md-2 col-form-label">First Name:</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="tenantFirstName" placeholder="First Name" ng-model = "tenantFirstNameInput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tenantLastName" class="col-md-2 col-form-label">Last Name:</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="tenantLastName" placeholder="Last Name" ng-model = "tenantLastNameInput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tenantEmail" class="col-md-2 col-form-label">Email:</label>
+                        <div class="col-md-10">
+                            <input type="email" class="form-control" id="tenantEmail" placeholder="Email" ng-model = "tenantEmailInput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tenantAptNum" class="col-md-2 col-form-label">Apt#:</label>
+                        <div class="col-md-10">
+                            <input type="number" class="form-control" id="tenantAptNum" placeholder="Apt#" ng-model = "tenantAptInput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tenantImage" class="col-md-2 col-form-label">Image URL:</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="tenantImage" placeholder="Image URL" ng-model = "tenantImageInput">
+                        </div>
+                        <div class="col-md-4">
+                            <img class="img-property" ng-src="{{tenantImageInput}}" alt="Image preview" >
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="createTenantFunc()">Create</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelTenantFunc()">Cancel</button>
+                </div>
             </div>
         </div>
     </div>   
