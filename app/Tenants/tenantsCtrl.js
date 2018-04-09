@@ -1,61 +1,62 @@
 app.controller( "tenantsCtrl", function( $scope ){
     var tenantToDel                              = null;
     var tenantToUpd                              = null;
-    $scope.filterMessagesByTitleAndDetailFunc = function( message ){
+    $scope.filterTenantsFunc = function( tenant ){
         var res = false;
         var str = $scope.filterTenantInput;
 
-        res = message.isTitleIncludeStr( str ) || message.isDetailsIncludeStr( str );
+        res = tenant.isNameIncludeStr( str ) || tenant.isAptNumIncludeStr( str );
 
         return res;
     };
-    $scope.setMessageForRmvFunc = function( message ){
-        msgToDel = message;
+    $scope.setTenantForRmvFunc = function( tenant ){
+        tenantToDel = tenant;
     };
-    $scope.removeMessageFunc = function(){
-        if( msgToDel != null )
+    $scope.removeTenantFunc = function(){
+        if( tenantToDel != null )
         {
-            messagesService.rmvMessageMethod( msgToDel );
+            tenantsService.rmvTenantMethod( tenantToDel );
 
-            msgToDel = "";
+            tenantToDel = "";
         }
     }
-    $scope.cancelMsgFunc = function(){
-        initInputsMessage();
+    $scope.cancelTenantFunc = function(){
+        initInputsTenant();
     };
-    $scope.createMessageFunc = function(){
-        messagesService.createNewMessageMethod( $scope.messageTitleInput, $scope.messageDetailsInput, $scope.messagePriorityInput, $scope.messageImageInput );
-        initInputsMessage();
+    $scope.createTenantFunc = function(){
+        tenantsService.createNewtenantMethod( $scope.tenantFnameInput, $scope.tenantLnameInput, $scope.tenantEmailInput, $scope.tenantAptNumInput, $scope.tenantImageInput );
+        initInputsTenant();
     };
-    $scope.fillInputsForUpdFunc = function( message ){
-        $scope.messageTitleInput    = message.getTitle();
-        $scope.messageDetailsInput  = message.getDetails();
-        $scope.messagePriorityInput = message.getPriority();
-        $scope.messageImageInput    = message.getImg();
-        msgToUpd                    = message;
+    $scope.fillInputsForUpdFunc = function( tenant ){
+        $scope.tenantFnameInput        = tenant.getFname();
+        $scope.tenantLnameInput        = tenant.getLname();
+        $scope.tenantEmailInput        = tenant.getEmail();
+        $scope.tenantAptNumInput       = tenant.getAptNum();
+        $scope.tenantImageInput        = tenant.getImg();
+        tenantToUpd                    = tenant;
     };
-    $scope.updateMessageFunc = function(){
-        messagesService.updateMessageMethod( msgToUpd, $scope.messageTitleInput, $scope.messageDetailsInput, $scope.messagePriorityInput, $scope.messageImageInput );
-        initInputsMessage();
+    $scope.updateTenantFunc = function(){
+        tenantsService.updateTenantMethod( tenantToUpd, $scope.tenantFnameInput, $scope.tenantLnameInput, $scope.tenantEmailInput, $scope.tenantAptNumInput, $scope.tenantImageInput );
+        initInputsTenant();
 
-        msgToUpd = "";
+        tenantToUpd = "";
     };
 
-    $scope.filterInTitleDetailsInput = "";
-    $scope.orderByInput              = "creationDate";
+    $scope.filterTenantInput = "";
 
-    messagesService.loadMessagesMethod().then( function( messages ){
-        $scope.messages = messages;
-    }, function( messages ){
+    tenantsService.loadTenantsMethod().then( function( tenants ){
+        $scope.tenants = tenants;
+    }, function( tenants ){
         alert( "Error:" ); 
     });
 
-    function initInputsMessage(){
-        $scope.messageTitleInput         = "";
-        $scope.messageDetailsInput       = "";
-        $scope.messagePriorityInput      = "Important";
-        $scope.messageImageInput         = ""; 
+    function initInputsTenant(){
+        $scope.tenantFnameInput          = "";
+        $scope.tenantLnameInput          = "";
+        $scope.tenantEmailInput          = "";
+        $scope.tenantAptNumInput         = "";
+        $scope.tenantImageInput          = ""; 
     }
 
-    initInputsMessage();
+    initInputsTenant();
 });

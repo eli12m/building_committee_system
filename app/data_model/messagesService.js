@@ -1,8 +1,8 @@
 app.factory( "messagesService", function( $http, $q, dateService ){
     var messages         = [];
-    var message1         = null;
+   /* var message1         = null;
     var message2         = null;
-    var message3         = null;
+    var message3         = null;*/
     var counter          = 0;
     var loadMessagesFlag = false;
 

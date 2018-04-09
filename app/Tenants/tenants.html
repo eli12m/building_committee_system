@@ -1,6 +1,6 @@
 <header main-nav-bar-directive>
 </header>
-<main class="container" ng-controller="tenantsCtrl">
+<main class="container">
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="form-group">
@@ -12,6 +12,48 @@
         <div class="col-md-12 clearfix">
             <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
             <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newTenantModal" onClick="return false;">New Tenant</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div id="accordion">
+                <div class="card" ng-repeat="tenant in tenants | filter:filterTenantsFunc">
+                    <div class="card-header clearfix" id="heading-{{tenant.getId()}}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{tenant.getId()}}" aria-expanded="true" aria-controls="collapse-{{tenant.getId()}}">
+                                {{tenant.getFullName()}} 
+                            </button>
+                        </h5>    
+                    </div>
+                    <div id="collapse-{{tenant.getId()}}" class="collapse" aria-labelledby="heading-{{tenant.getId()}}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 border-right">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="img-property" ng-src="{{tenant.getImg()}}">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <label class="ml-3 grey-font">Name:</label>
+                                            <p class="ml-3">{{tenant.getFullName()}}</p>
+                                            <label class="ml-3 grey-font">Email:</label>
+                                            <label class="ml-3">{{tenant.getEmail()}}</label>
+                                            <label class="ml-3 grey-font">Apt:</label>
+                                            <label class="ml-3">{{tenant.getAptNum()}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 clearfix">
+                                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-click="setMessageForRmvFunc(message)">Delete</button>
+                                            <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateMessageModal" ng-click="fillInputsForUpdFunc(message)">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="newTenantModal">
