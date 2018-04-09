@@ -21,7 +21,8 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-12 clearfix">
-                <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newMessageModal">New Message</a>
+                <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+                <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newMessageModal" onClick="return false;">New Message</a>
             </div>
         </div>
         <div class="row mt-3">
