@@ -11,7 +11,7 @@ app.factory( "tenantsService", function( $http, $q ){
         this.fname             = fname;
         this.lname             = lname;
         this.email             = email;
-        this.aptNum            = aptNum;
+        this.aptNum            = parseInt( aptNum );
         this.img               = img;
         this.getId             = function(){ return this.id; }
         this.getFname          = function(){ return this.fname; }
@@ -24,7 +24,7 @@ app.factory( "tenantsService", function( $http, $q ){
         this.getImg            = function(){ return this.img; }
         this.setImg            = function( img ){ this.img = img; }
         this.getAptNum         = function(){ return this.aptNum; }
-        this.setAptNum         = function( aptNum ){ this.aptNum = aptNum; }
+        this.setAptNum         = function( aptNum ){ this.aptNum = parseInt( aptNum ); }
         this.isFnameIncludeStr = function( str )
         {  
             var fname = this.getFname();
@@ -49,9 +49,10 @@ app.factory( "tenantsService", function( $http, $q ){
         }
         this.isAptNumIncludeStr = function( str )
         {
-            var aptNum = this.getAptNum();
+            var aptNum    = this.getAptNum();
+            var aptNumStr = aptNum.toString();
 
-            return aptNum.toUpperCase().includes( str.toUpperCase() );
+            return aptNumStr.toUpperCase().includes( str.toUpperCase() );
         }
     }
 

@@ -42,7 +42,8 @@ app.controller( "tenantsCtrl", function( $scope, tenantsService ){
         tenantToUpd = "";
     };
 
-    $scope.filterTenantInput = "";
+    $scope.filterTenantInput  = "";
+    $scope.orderTenantByInput = "lname";
 
     tenantsService.loadTenantsMethod().then( function( tenants ){
         $scope.tenants = tenants;
