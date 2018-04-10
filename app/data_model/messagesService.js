@@ -3,14 +3,12 @@ app.factory( "messagesService", function( $http, $q, dateService ){
    /* var message1         = null;
     var message2         = null;
     var message3         = null;*/
-    var counter          = 0;
+    var counter          = 3; /*todo: to change this that it will be read from json and not hard coded*/
     var loadMessagesFlag = false;
 
-    function Message( title, creationDate, img, details, priority )
+    function Message( id, title, creationDate, img, details, priority )
     {
-        counter++;
-
-        this.id                = counter;
+        this.id                = id;
         this.title             = title;
         this.creationDate      = new Date( creationDate );
         this.img               = img;
@@ -62,7 +60,7 @@ app.factory( "messagesService", function( $http, $q, dateService ){
                 messages.splice( 0, messages.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    messages.push( new Message( response.data[i].title, response.data[i].creationDate, response.data[i].img, response.data[i].details, response.data[i].priority ) );
+                    messages.push( new Message( parseInt( response.data[i].msgId ), response.data[i].title, response.data[i].creationDate, response.data[i].img, response.data[i].details, response.data[i].priority ) );
                 }
         
                 asyncLoad.resolve( messages );
@@ -104,9 +102,11 @@ app.factory( "messagesService", function( $http, $q, dateService ){
         var newMsg   = null;
         var todayStr = "";
         
+        counter++;
+
         todayStr = dateService.getCurDateyyyymmddMethod();
 
-        newMsg = new Message( messageTitle, todayStr, messageImage, messageDetails, messagePriority );
+        newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority );
 
         messages.push( newMsg );
     }
