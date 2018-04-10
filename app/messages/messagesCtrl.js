@@ -40,6 +40,9 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
 
         msgToUpd = "";
     };
+    $scope.orderDirection = function() {
+        return true;
+    }
 
     $scope.filterInTitleDetailsInput = "";
     $scope.orderByInput              = "creationDate";

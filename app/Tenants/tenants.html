@@ -35,17 +35,19 @@
                                         </div>
                                         <div class="col-md-9">
                                             <label class="ml-3 grey-font">Name:</label>
-                                            <p class="ml-3">{{tenant.getFullName()}}</p>
+                                            <label class="ml-3">{{tenant.getFullName()}}</label>
+                                            <br>
                                             <label class="ml-3 grey-font">Email:</label>
                                             <label class="ml-3">{{tenant.getEmail()}}</label>
+                                            <br>
                                             <label class="ml-3 grey-font">Apt:</label>
                                             <label class="ml-3">{{tenant.getAptNum()}}</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 clearfix">
-                                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-click="setMessageForRmvFunc(message)">Delete</button>
-                                            <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateMessageModal" ng-click="fillInputsForUpdFunc(message)">Update</button>
+                                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-click="setTenantForRmvFunc(tenant)">Delete</button>
+                                            <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateTenantModal" ng-click="fillInputsForUpdFunc(tenant)">Update</button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-app.controller( "tenantsCtrl", function( $scope ){
+app.controller( "tenantsCtrl", function( $scope, tenantsService ){
     var tenantToDel                              = null;
     var tenantToUpd                              = null;
     $scope.filterTenantsFunc = function( tenant ){

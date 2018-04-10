@@ -1,0 +1,23 @@
+[
+    {
+        "fname"  : "Israel",
+        "lname"  : "Israeli",
+        "img"    : "/assets/images/tenants/israeli.jpg",
+        "email"  : "israelisraeli@gmail.com",
+        "aptNum" : "5"
+    },
+    {
+        "fname"  : "John",
+        "lname"  : "Doe",
+        "img"    : "/assets/images/tenants/doe.jpg",
+        "email"  : "johndoe@gmail.com",
+        "aptNum" : "12"
+    },
+    {
+        "fname"  : "Noa",
+        "lname"  : "Cohen",
+        "img"    : "/assets/images/tenants/cohen.jpg",
+        "email"  : "noacohen@gmail.com",
+        "aptNum" : "15"
+    }
+]
