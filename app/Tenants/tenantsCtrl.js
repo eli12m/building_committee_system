@@ -24,7 +24,7 @@ app.controller( "tenantsCtrl", function( $scope, tenantsService ){
         initInputsTenant();
     };
     $scope.createTenantFunc = function(){
-        tenantsService.createNewtenantMethod( $scope.tenantFnameInput, $scope.tenantLnameInput, $scope.tenantEmailInput, $scope.tenantAptNumInput, $scope.tenantImageInput );
+        tenantsService.createNewTenantMethod( $scope.tenantFnameInput, $scope.tenantLnameInput, $scope.tenantEmailInput, $scope.tenantAptNumInput, $scope.tenantImageInput );
         initInputsTenant();
     };
     $scope.fillInputsForUpdFunc = function( tenant ){

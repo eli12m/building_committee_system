@@ -131,7 +131,7 @@ app.factory( "tenantsService", function( $http, $q ){
             tenant.setLname( tenantLname );
             tenant.setEmail( tenantEmail );
             tenant.setAptNum( tenantAptNum );
-            tenat.setImg( tenantImage );
+            tenant.setImg( tenantImage );
         }
     }
 

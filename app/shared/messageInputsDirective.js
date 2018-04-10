@@ -3,4 +3,4 @@ app.directive( "messageInputsDirective", function(){
         restrict: "A",
         templateUrl: "/app/shared/messageInputsDirective.html"
     };
-})
+});
