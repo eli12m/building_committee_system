@@ -1,19 +1,17 @@
 app.factory( "tenantsService", function( $http, $q ){
     var tenants          = [];
-    var counter          = 0;
+    var counter          = 3 /*todo: to change this that it will be read from json and not hard coded*/;
     var loadTenantsFlag  = false;
 
-    function Tenant( fname, lname, email, aptNum, img )
+    function Tenant( internalId, fname, lname, email, aptNum, img )
     {
-        counter++;
-
-        this.id                = counter;
+        this.internalId        = internalId;
         this.fname             = fname;
         this.lname             = lname;
         this.email             = email;
         this.aptNum            = parseInt( aptNum );
         this.img               = img;
-        this.getId             = function(){ return this.id; }
+        this.getId             = function(){ return this.internalId; }
         this.getFname          = function(){ return this.fname; }
         this.setFname          = function( fname ){ this.fname = fname; }
         this.getLname          = function(){ return this.lname; }
@@ -78,7 +76,7 @@ app.factory( "tenantsService", function( $http, $q ){
                 tenants.splice( 0, tenants.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    tenants.push( new Tenant( response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].aptNum, response.data[i].img ) );
+                    tenants.push( new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].aptNum, response.data[i].img ) );
                 }
         
                 asyncLoad.resolve( tenants );
@@ -119,7 +117,9 @@ app.factory( "tenantsService", function( $http, $q ){
     {
         var newTenant   = null;
 
-        newTenant = new Tenant( tenantFaname, tenantLname, tenantEmail, tenantAptNum, tenantImage );
+        counter++;
+
+        newTenant = new Tenant( counter, tenantFaname, tenantLname, tenantEmail, tenantAptNum, tenantImage );
 
         tenants.push( newTenant );
     }

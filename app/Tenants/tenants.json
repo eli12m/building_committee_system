@@ -1,5 +1,6 @@
 [
     {
+        "internalId" : "1",
         "fname"  : "Israel",
         "lname"  : "Israeli",
         "img"    : "/assets/images/tenants/israeli.jpg",
@@ -7,6 +8,7 @@
         "aptNum" : "5"
     },
     {
+        "internalId" : "2",
         "fname"  : "John",
         "lname"  : "Doe",
         "img"    : "/assets/images/tenants/doe.jpg",
@@ -14,6 +16,7 @@
         "aptNum" : "12"
     },
     {
+        "internalId" : "3",
         "fname"  : "Noa",
         "lname"  : "Cohen",
         "img"    : "/assets/images/tenants/cohen.jpg",
