@@ -23,6 +23,7 @@
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{tenant.getId()}}" aria-expanded="true" aria-controls="collapse-{{tenant.getId()}}">
                                 {{tenant.getFullName()}} 
                             </button>
+                            <label class="date-style">Apt# {{tenant.getAptNum()}}</label>
                         </h5>    
                     </div>
                     <div id="collapse-{{tenant.getId()}}" class="collapse" aria-labelledby="heading-{{tenant.getId()}}" data-parent="#accordion">
@@ -34,14 +35,32 @@
                                             <img class="img-property" ng-src="{{tenant.getImg()}}">
                                         </div>
                                         <div class="col-md-9">
-                                            <label class="ml-3 grey-font">Name:</label>
-                                            <label class="ml-3">{{tenant.getFullName()}}</label>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Name:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getFullName()}}</label>
+                                                </div>
+                                            </div>
                                             <br>
-                                            <label class="ml-3 grey-font">Email:</label>
-                                            <label class="ml-3">{{tenant.getEmail()}}</label>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Email:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getEmail()}}</label>
+                                                </div>
+                                            </div>
                                             <br>
-                                            <label class="ml-3 grey-font">Apt:</label>
-                                            <label class="ml-3">{{tenant.getAptNum()}}</label>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Apt:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getAptNum()}}</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
