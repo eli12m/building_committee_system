@@ -72,7 +72,7 @@ app.factory( "tenantsService", function( $http, $q ){
                 //on success
                 var i = 0;
 
-                //We cannot do here messages = [] because the outside already hold actors and if we do that we change the pointer. For example two collectors that use this service. The first collector call to this function and get an array of actors. Then the second collector call to this function and do messages = [] and by this give a new pointer to messages so the first collector still looked on the old pointer of messages.
+                //We cannot do here tenants = [] because the outside already hold actors and if we do that we change the pointer. For example two collectors that use this service. The first collector call to this function and get an array of actors. Then the second collector call to this function and do messages = [] and by this give a new pointer to messages so the first collector still looked on the old pointer of messages.
                 //so to empty the array instead of doing messages = [] do actors.splice( 0, messages.length )
 
                 tenants.splice( 0, tenants.length );

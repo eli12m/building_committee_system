@@ -57,7 +57,7 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
         $scope.messageTitleInput         = "";
         $scope.messageDetailsInput       = "";
         $scope.messagePriorityInput      = "Important";
-        $scope.messageImageInput         = ""; 
+        $scope.messageImageInput         = "/assets/images/messages/placeholder.png"; 
     }
 
     initInputsMessage();

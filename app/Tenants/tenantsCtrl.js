@@ -56,7 +56,7 @@ app.controller( "tenantsCtrl", function( $scope, tenantsService ){
         $scope.tenantLnameInput          = "";
         $scope.tenantEmailInput          = "";
         $scope.tenantAptNumInput         = "";
-        $scope.tenantImageInput          = ""; 
+        $scope.tenantImageInput          = "/assets/images/tenants/placeholder.jpg"; 
     }
 
     initInputsTenant();
