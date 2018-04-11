@@ -1,14 +1,15 @@
-app.factory( "tenantsService", function( $http, $q ){
+app.factory( "tenantsService", function( $http, $q, $log ){
     var tenants          = [];
     var counter          = 3 /*todo: to change this that it will be read from json and not hard coded*/;
     var loadTenantsFlag  = false;
 
-    function Tenant( internalId, fname, lname, email, aptNum, img )
+    function Tenant( internalId, fname, lname, email, password, aptNum, img )
     {
         this.internalId        = internalId;
         this.fname             = fname;
         this.lname             = lname;
         this.email             = email;
+        this.password          = password;
         this.aptNum            = parseInt( aptNum );
         this.img               = img;
         this.getId             = function(){ return this.internalId; }
@@ -76,7 +77,7 @@ app.factory( "tenantsService", function( $http, $q ){
                 tenants.splice( 0, tenants.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    tenants.push( new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].aptNum, response.data[i].img ) );
+                    tenants.push( new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img ) );
                 }
         
                 asyncLoad.resolve( tenants );
@@ -116,10 +117,13 @@ app.factory( "tenantsService", function( $http, $q ){
     function crtNewTenantFunc( tenantFaname, tenantLname, tenantEmail, tenantAptNum, tenantImage )
     {
         var newTenant   = null;
+        var password    = "";
 
         counter++;
 
-        newTenant = new Tenant( counter, tenantFaname, tenantLname, tenantEmail, tenantAptNum, tenantImage );
+        password = counter.toString();
+
+        newTenant = new Tenant( counter, tenantFaname, tenantLname, tenantEmail, password, tenantAptNum, tenantImage );
 
         tenants.push( newTenant );
     }
@@ -136,6 +140,33 @@ app.factory( "tenantsService", function( $http, $q ){
         }
     }
 
+    function checkTenantExistInTenantsFunc( tenantEmail, tenantPassword )
+    {
+        var async     = $q.defer();
+        var tenantObj = null;
+
+        $http.get("app/Tenants/tenants.json").then(
+            function( response ) 
+            {
+                for (var i = 0; i < response.data.length; i++) {
+                    if ( response.data[i].email === tenantEmail && response.data[i].password === tenantPassword )
+                    {
+                        tenantObj = new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img );
+                        break;
+                    }                
+                }
+
+                async.resolve( tenantObj );
+            }, 
+            function( response ) 
+            {
+                $log.error( "error in getting user json: " + JSON.stringify( response ) );
+                async.reject( tenantObj );
+            });
+
+            return async.promise;
+    }
+
    /* message1 = new Message( "New classes in the gym", "2018-03-14", "/assets/images/messages/gym.jpg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Information" );
     message2 = new Message( "Dont step on the grass!", "2018-02-01", "/assets/images/messages/grass.jpeg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Important" );
     message3 = new Message( "Closing the pool for maintanence", "2018-01-08", "/assets/images/messages/pool.jpg", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Information" );
@@ -148,6 +179,7 @@ app.factory( "tenantsService", function( $http, $q ){
         loadTenantsMethod: loadTenantsFunc,
         rmvTenantMethod: rmvTenantFunc,
         createNewTenantMethod: crtNewTenantFunc,
-        updateTenantMethod: updTenantFunc
+        updateTenantMethod: updTenantFunc,
+        checkTenantExistInTenantsMethod: checkTenantExistInTenantsFunc
     };
 });

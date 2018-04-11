@@ -5,6 +5,7 @@
         "lname"  : "Israeli",
         "img"    : "/assets/images/tenants/israeli.jpg",
         "email"  : "israelisraeli@gmail.com",
+        "password" : "1",
         "aptNum" : "5"
     },
     {
@@ -13,6 +14,7 @@
         "lname"  : "Doe",
         "img"    : "/assets/images/tenants/doe.jpg",
         "email"  : "johndoe@gmail.com",
+        "password" : "2",
         "aptNum" : "12"
     },
     {
@@ -21,6 +23,7 @@
         "lname"  : "Cohen",
         "img"    : "/assets/images/tenants/cohen.jpg",
         "email"  : "noacohen@gmail.com",
+        "password" : "3",
         "aptNum" : "15"
     }
 ]

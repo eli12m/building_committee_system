@@ -50,7 +50,7 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
     messagesService.loadMessagesMethod().then( function( messages ){
         $scope.messages = messages;
     }, function( messages ){
-        alert( "Error:" ); 
+        alert( "Error:" );/*todo: to cangethat*/ 
     });
 
     function initInputsMessage(){
