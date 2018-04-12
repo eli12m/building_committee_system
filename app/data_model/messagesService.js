@@ -1,4 +1,4 @@
-app.factory( "messagesService", function( $http, $q, dateService ){
+app.factory( "messagesService", function( $http, $q, dateService, loginService ){
     var messages         = [];
    /* var message1         = null;
     var message2         = null;
@@ -6,7 +6,7 @@ app.factory( "messagesService", function( $http, $q, dateService ){
     var counter          = 3; /*todo: to change this that it will be read from json and not hard coded*/
     var loadMessagesFlag = false;
 
-    function Message( id, title, creationDate, img, details, priority )
+    function Message( id, title, creationDate, img, details, priority, readBy )
     {
         this.id                = id;
         this.title             = title;
@@ -14,6 +14,7 @@ app.factory( "messagesService", function( $http, $q, dateService ){
         this.img               = img;
         this.details           = details;
         this.priority          = priority;
+        this.readBy            = readBy;
         this.getId             = function(){ return this.id; }
         this.getCreationDate   = function(){ return this.creationDate; }
         this.getImg            = function(){ return this.img; }
@@ -24,6 +25,8 @@ app.factory( "messagesService", function( $http, $q, dateService ){
         this.setTitle          = function( title ){ this.title = title; }
         this.getDetails        = function(){ return this.details; }
         this.setDetails        = function( details ){ this.details = details; }
+        this.getReadBy         = function(){ return this.readBy; }
+        this.setReadBy         = function( readBy ){ this.readBy = readBy; }
         this.isTitleIncludeStr = function( str )
         {  
             var title = this.getTitle();
@@ -35,6 +38,30 @@ app.factory( "messagesService", function( $http, $q, dateService ){
             var details = this.getDetails();
 
             return details.toUpperCase().includes( str.toUpperCase() );
+        }
+        this.addReaderToMsg = function( readerStr )
+        {
+            this.readBy.push( readerStr );
+        }
+        this.copyReaderByArr = function( readBy )
+        {
+            this.readBy = readBy.slice();  
+        }
+        this.isTenantReadMsg = function( readerStr )
+        {
+            var i   = 0;
+            var res = false;
+
+            for( i = 0; i < this.readBy.length; i++ )
+            {
+                if( readerStr === readBy[i] )
+                {
+                    res = true;
+                    break;
+                }
+            }
+
+            return res;
         }
     }
 
@@ -60,7 +87,7 @@ app.factory( "messagesService", function( $http, $q, dateService ){
                 messages.splice( 0, messages.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    messages.push( new Message( parseInt( response.data[i].msgId ), response.data[i].title, response.data[i].creationDate, response.data[i].img, response.data[i].details, response.data[i].priority ) );
+                    messages.push( new Message( parseInt( response.data[i].msgId ), response.data[i].title, response.data[i].creationDate, response.data[i].img, response.data[i].details, response.data[i].priority, response.data[i].readBy.slice() ) );
                 }
         
                 asyncLoad.resolve( messages );
@@ -99,15 +126,17 @@ app.factory( "messagesService", function( $http, $q, dateService ){
 
     function crtNewMessageFunc( messageTitle, messageDetails, messagePriority, messageImage )
     {
-        var newMsg   = null;
-        var todayStr = "";
+        var newMsg            = null;
+        var todayStr          = "";
+        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
         
         counter++;
 
         todayStr = dateService.getCurDateyyyymmddMethod();
 
-        newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority );
+        newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority, [] );
 
+        newMsg.addReaderToMsg( emailActiveTenant );
         messages.push( newMsg );
     }
 

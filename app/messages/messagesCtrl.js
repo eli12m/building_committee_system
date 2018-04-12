@@ -43,8 +43,21 @@ app.controller( "messagesCtrl", function( $scope, messagesService, loginService 
     $scope.orderDirection = function() {
         return true;
     }
-    $scope.isActiveTenantCommittee = function(){
+    $scope.isShowBtn = function(){
         return loginService.isLoginTenantCommitteeMemberMethod();
+    }
+    $scope.clickOnTitleMsgFunc = function( message ){
+        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+
+        message.addReaderToMsg( emailActiveTenant );
+    }
+    $scope.showBoldStyleMsgFunc = function( message ){
+        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var res               = false;
+        
+        res = message.isTenantReadMsg( emailActiveTenant );
+
+        return { "bold-style": !res };
     }
 
     $scope.filterInTitleDetailsInput = "";
