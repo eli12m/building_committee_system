@@ -3,7 +3,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
     var counter          = 3 /*todo: to change this that it will be read from json and not hard coded*/;
     var loadTenantsFlag  = false;
 
-    function Tenant( internalId, fname, lname, email, password, aptNum, img )
+    function Tenant( internalId, fname, lname, email, password, aptNum, img, isCommitteeMember )
     {
         this.internalId        = internalId;
         this.fname             = fname;
@@ -12,6 +12,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
         this.password          = password;
         this.aptNum            = parseInt( aptNum );
         this.img               = img;
+        this.committeeMember   = isCommitteeMember,
         this.getId             = function(){ return this.internalId; }
         this.getFname          = function(){ return this.fname; }
         this.setFname          = function( fname ){ this.fname = fname; }
@@ -24,6 +25,8 @@ app.factory( "tenantsService", function( $http, $q, $log ){
         this.setImg            = function( img ){ this.img = img; }
         this.getAptNum         = function(){ return this.aptNum; }
         this.setAptNum         = function( aptNum ){ this.aptNum = parseInt( aptNum ); }
+        this.isCommitteeMember = function(){ return this.committeeMember; }
+        this.setCommitteeMember = function( committeeMember ){ this.committeeMember = committeeMember; }
         this.isFnameIncludeStr = function( str )
         {  
             var fname = this.getFname();
@@ -77,7 +80,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
                 tenants.splice( 0, tenants.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    tenants.push( new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img ) );
+                    tenants.push( new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img, response.data[i].isCommitteeMember ) );
                 }
         
                 asyncLoad.resolve( tenants );
@@ -123,7 +126,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
 
         password = counter.toString();
 
-        newTenant = new Tenant( counter, tenantFaname, tenantLname, tenantEmail, password, tenantAptNum, tenantImage );
+        newTenant = new Tenant( counter, tenantFaname, tenantLname, tenantEmail, password, tenantAptNum, tenantImage, false );
 
         tenants.push( newTenant );
     }
@@ -151,7 +154,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
                 for (var i = 0; i < response.data.length; i++) {
                     if ( response.data[i].email === tenantEmail && response.data[i].password === tenantPassword )
                     {
-                        tenantObj = new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img );
+                        tenantObj = new Tenant( parseInt( response.data[i].internalId ), response.data[i].fname, response.data[i].lname, response.data[i].email, response.data[i].password, response.data[i].aptNum, response.data[i].img, response.data[i].isCommitteeMember );
                         break;
                     }                
                 }

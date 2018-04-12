@@ -6,8 +6,32 @@ app.factory( "loginService", function( $http, $q, tenantsService ){
     {
         activeTenant = tenantObj;
     }
+
+    function getActiveTenantFunc()
+    {
+        return activeTenant;
+    }
+
+    function isLoginFunc()
+    {
+        return activeTenant != null ? true : false;
+    }
+
+    function isLoginTenantCommitteeMemberFunc(){
+        var res = false;
+
+        if( isLoginFunc() )
+        {
+            res = activeTenant.isCommitteeMember();
+        }
+
+        return res;
+    }
     
     return{
-        setActiveTenantMethod: setActiveTenantFunc
+        setActiveTenantMethod: setActiveTenantFunc,
+        getActiveTenantMethod: getActiveTenantFunc,
+        isLoginMethod: isLoginFunc,
+        isLoginTenantCommitteeMemberMethod: isLoginTenantCommitteeMemberFunc
     };
 });

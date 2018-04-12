@@ -22,7 +22,7 @@
         <div class="row mt-5">
             <div class="col-md-12 clearfix">
                 <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
-                <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newMessageModal" onClick="return false;">New Message</a>
+                <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newMessageModal" onClick="return false;" ng-show="isActiveTenantCommittee()">New Message</a>
             </div>
         </div>
         <div class="row mt-3">
@@ -61,8 +61,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 clearfix">
-                                                <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-click="setMessageForRmvFunc(message)">Delete</button>
-                                                <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateMessageModal" ng-click="fillInputsForUpdFunc(message)">Update</button>
+                                                <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-show="isActiveTenantCommittee()" ng-click="setMessageForRmvFunc(message)">Delete</button>
+                                                <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateMessageModal" ng-show="isActiveTenantCommittee()" ng-click="fillInputsForUpdFunc(message)">Update</button>
                                             </div>
                                         </div>
                                     </div>

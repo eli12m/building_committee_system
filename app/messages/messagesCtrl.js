@@ -1,4 +1,4 @@
-app.controller( "messagesCtrl", function( $scope, messagesService ){
+app.controller( "messagesCtrl", function( $scope, messagesService, loginService ){
     var msgToDel                              = null;
     var msgToUpd                              = null;
     $scope.filterMessagesByTitleAndDetailFunc = function( message ){
@@ -42,6 +42,9 @@ app.controller( "messagesCtrl", function( $scope, messagesService ){
     };
     $scope.orderDirection = function() {
         return true;
+    }
+    $scope.isActiveTenantCommittee = function(){
+        return loginService.isLoginTenantCommitteeMemberMethod();
     }
 
     $scope.filterInTitleDetailsInput = "";
