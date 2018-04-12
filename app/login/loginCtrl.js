@@ -23,8 +23,4 @@ app.controller( "loginCtrl", function( $scope, $location, loginService, tenantsS
                 alert( "Error:" ); /*todo: to change this*/
             });
     };
-    $scope.logoutFunc = function(){
-        loginService.setActiveTenantMethod( null );   
-    }
-
 });

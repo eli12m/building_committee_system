@@ -59,6 +59,7 @@ app.controller( "messagesCtrl", function( $scope, $location, messagesService, lo
 
         message.addReaderToMsg( emailActiveTenant );
     }
+    /*todo: the next func is called after we do logout and the active tenant is null so we get in the debugger error. To ask if it is ok that it is called in that time and to show the error and if it is ok to do null check.*/
     $scope.showBoldStyleMsgFunc = function( message ){
         var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
         var res               = false;
