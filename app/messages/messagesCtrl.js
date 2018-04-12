@@ -1,4 +1,12 @@
-app.controller( "messagesCtrl", function( $scope, messagesService, loginService ){
+app.controller( "messagesCtrl", function( $scope, $location, messagesService, loginService ){
+    
+    // This is an authotization check. If the user is not logged going back to the home screen
+    if( !loginService.isLoginMethod() )
+    {
+        $location.path("/login");
+        return;
+    }
+    
     var msgToDel                              = null;
     var msgToUpd                              = null;
     $scope.filterMessagesByTitleAndDetailFunc = function( message ){

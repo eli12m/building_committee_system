@@ -1,4 +1,11 @@
-app.controller( "tenantsCtrl", function( $scope, tenantsService ){
+app.controller( "tenantsCtrl", function( $scope, $location, tenantsService, loginService ){
+    
+    if( !loginService.isLoginMethod() )
+    {
+        $location.path("/login");
+        return;
+    }
+    
     var tenantToDel                              = null;
     var tenantToUpd                              = null;
     $scope.filterTenantsFunc = function( tenant ){
