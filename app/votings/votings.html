@@ -1,2 +1,21 @@
 <header main-nav-bar-directive>
 </header>
+<main class="container">
+    <div class="row mt-4">
+        <div class="col-md-6 border-right">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Active Votings</h3>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 clearfix">
+                    <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+                    <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newVotingModal" onClick="return false;" ng-show="isShowBtn()">New Voting</a>
+                </div>
+            </div>           
+        </div>
+        <div class="col-md-6 border-left">
+        </div>
+    </div>   
+</main>
