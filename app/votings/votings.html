@@ -13,7 +13,73 @@
                     <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
                     <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newVotingModal" onClick="return false;" ng-show="isShowBtn()">New Voting</a>
                 </div>
-            </div>           
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div id="accordion">
+                        <div class="card" ng-repeat="voting in votings">
+                            <div class="card-header" id="heading-{{voting.getId()}}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{voting.getId()}}" aria-expanded="true" aria-controls="collapse-{{voting.getId()}}">
+                                                {{voting.getTitle()}}
+                                            </button>
+                                        </h5>
+                                    </div>
+                                </div>     
+                            </div>
+                            <div id="collapse-{{voting.getId()}}" class="collapse" aria-labelledby="heading-{{voting.getId()}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label class="ml-3 grey-font">Details:</label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <p class="ml-3">{{voting.getDetails()}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label class="ml-3 grey-font">End Date:</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="ml-3">{{voting.getEndDate()}}</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <button type="button" class="btn btn-info" ng-show="isShowBtn()">Update End Date</button>   
+                                                </div>
+                                            </div>   
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5>Voting Percentage</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9"><!--todo:to do the dynamic select option. How I do that?-->
+                                            <div class="form-group row">
+                                                <label for="voteOptions" class="ml-3 grey-font col-md-2 col-form-label">Your vote:</label>
+                                                <div class="col-md-10">
+                                                    <select class = "form-control" id = "voteOptions">
+                                                        <option>In Favor</option>
+                                                        <option>Against</option>
+                                                    </select>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-info">Submit Vote</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6 border-left">
         </div>
