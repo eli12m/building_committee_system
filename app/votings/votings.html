@@ -63,13 +63,13 @@
                                     <div class="form-group row mt-3">
                                         <label for="voteOptions" class="ml-3 grey-font col-lg-3 col-form-label">Your vote:</label>
                                         <div class="col-lg-6">
-                                            <select class = "form-control" id = "voteOptions">
+                                            <select class = "form-control" id = "voteOptions" ng-disabled="isDisableBtn(voting)">
                                                 <option>In Favor</option>
                                                 <option>Against</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="button" class="btn btn-info">Submit</button>
+                                            <button type="button" class="btn btn-info" ng-disabled="isDisableBtn(voting)">Submit</button>
                                         </div>
                                     </div>      
                                 </div> 
