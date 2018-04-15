@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <!--todo:to do the dynamic select option. How I do that?-->
-                                    <div class="form-group row mt-3">
+                                    <div class="form-group row mt-3" ng-show="isNeedToVote(voting)">
                                         <label for="voteOptions" class="ml-3 grey-font col-lg-3 col-form-label">Your vote:</label>
                                         <div class="col-lg-6">
                                             <select class = "form-control" id = "voteOptions" ng-disabled="isDisableBtn(voting)">
@@ -71,6 +71,10 @@
                                         <div class="col-lg-2">
                                             <button type="button" class="btn btn-info" ng-disabled="isDisableBtn(voting)">Submit</button>
                                         </div>
+                                    </div>
+                                    <div class="row mt-3" ng-hide="isNeedToVote(voting)">
+                                        <label class="ml-3 grey-font col-lg-3">Your vote:</label>
+                                        <label class="col-lg-6">{{getTenantVotedOpt(voting)}}</label>
                                     </div>      
                                 </div> 
                             </div>

@@ -43,6 +43,22 @@ app.factory( "votingsService", function( $http, $q, votesService ){
 
             return res;
         }
+        this.getVotedOptByTenant = function( voterStr )
+        {
+            var i           = 0;
+            var votedOptStr = "";
+
+            for( i = 0; i < this.votes.length; i++ )
+            {
+                if( voterStr === this.votes[i].getVotedBy() )
+                {
+                    votedOptStr = this.votes[i].getVoteVal();
+                    break;
+                } 
+            }
+
+            return votedOptStr;
+        }
     }
 
     function loadVotingsFunc()
