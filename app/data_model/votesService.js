@@ -10,6 +10,15 @@ app.factory( "votesService", function(){
         this.setVoteVal = function( voteValStr ){ this.voteVal = voteValStr; }
     }
 
+    function addVoteToVotesArrFunc( votes, voteBy, voteVal )
+    {
+        var vote = null;
+
+        vote = new Vote( voteBy, voteVal );
+
+        votes.push( vote );
+    }
+
     function cloneVotesArrFunc( votes )
     {
         var i       = 0;
@@ -27,6 +36,7 @@ app.factory( "votesService", function(){
     }
 
     return{
+        addVoteToVotesArrMethod: addVoteToVotesArrFunc,
         cloneVotesArrMethod: cloneVotesArrFunc
     };
 });

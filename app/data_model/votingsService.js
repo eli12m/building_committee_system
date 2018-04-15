@@ -99,7 +99,15 @@ app.factory( "votingsService", function( $http, $q, votesService ){
         return asyncLoad.promise;
     }
 
+    function addVoteToVotingFunc( voting, voteBy, voteOpt )
+    {
+        var votes = voting.getVotes();
+
+        votesService.addVoteToVotesArrMethod( votes, voteBy, voteOpt );
+    }
+
     return{
-        loadVotingsMethod: loadVotingsFunc
+        loadVotingsMethod: loadVotingsFunc,
+        addVoteToVotingMethod: addVoteToVotingFunc
     };
 });
