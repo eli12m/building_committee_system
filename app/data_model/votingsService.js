@@ -59,6 +59,12 @@ app.factory( "votingsService", function( $http, $q, votesService ){
 
             return votedOptStr;
         }
+        this.getVotesNum = function()
+        {
+            var votes = this.getVotes();
+
+            return votes.length;
+        }
     }
 
     function loadVotingsFunc()
