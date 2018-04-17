@@ -65,6 +65,21 @@ app.factory( "votingsService", function( $http, $q, votesService ){
 
             return votes.length;
         }
+        this.getVotesOpt = function( optStr )
+        {
+            var i   = 0;
+            var num = 0;
+
+            for( i = 0; i < this.votes.length; i++ )
+            {
+                if( optStr === this.votes[i].getVoteVal() )
+                {
+                    num++;
+                }
+            }
+
+            return num;
+        }
     }
 
     function loadVotingsFunc()

@@ -36,6 +36,24 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
 
         votingsService.addVoteToVotingMethod( voting, emailActiveTenant, selectedVoteOpt );
     }
+    $scope.getResultsVotesPrecentageObj = function( voting ){
+        var numTenantsVoteFirstOpt    = voting.getVotesOpt( "In Favor" );
+        var numTenantsVoteSecondOpt   = voting.getVotesOpt( "Against" );
+        var resultsVotesPrecentageObj = {};
+
+        resultsVotesPrecentageObj.type = "PieChart";
+        resultsVotesPrecentageObj.data = {
+            "cols": [ {id: "i", label: "In Favor/Against", type: "string"},
+                      {id: "v", label: "Votes", type: "number"} ],
+            "rows": [ {c: [{v:"In Favor"}, {v:numTenantsVoteFirstOpt}]}, {c: [{v:"Against"}, {v:numTenantsVoteSecondOpt}]}]
+        };
+
+        resultsVotesPrecentageObj.options = {
+            'title': 'In Favor/Against'
+        };
+
+        return resultsVotesPrecentageObj;
+    }
     $scope.getVotesPrecentageObj = function( voting ){
         var numTenantsVote     = voting.getVotesNum();
         var numTenantsNotVote  = tenantsService.getNumOfTenantsMethod() - numTenantsVote;
@@ -49,7 +67,7 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         };
 
         votesPrecentageObj.options = {
-            'title': 'How Much Tenants voted'
+            'title': 'Votes/Not Votes'
         };
 
         return votesPrecentageObj;
