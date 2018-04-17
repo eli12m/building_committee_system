@@ -49,7 +49,8 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         };
 
         resultsVotesPrecentageObj.options = {
-            'title': 'In Favor/Against'
+            'title': 'In Favor/Against',
+            'is3D': true,
         };
 
         return resultsVotesPrecentageObj;
@@ -67,7 +68,8 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         };
 
         votesPrecentageObj.options = {
-            'title': 'Votes/Not Votes'
+            'title': 'Votes/Not Votes',
+            'is3D': true,
         };
 
         return votesPrecentageObj;
