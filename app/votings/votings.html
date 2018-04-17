@@ -32,7 +32,7 @@
                             <div id="collapse-{{voting.getId()}}" class="collapse" aria-labelledby="heading-{{voting.getId()}}" data-parent="#accordion">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-lg-7">
+                                        <div class="col-lg-12">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <label class="ml-3 grey-font">Details:</label>
@@ -44,10 +44,12 @@
                                                 </div>
                                             </div> 
                                         </div>
-                                        <div class="col-lg-5">
-                                            <h5 class="grey-font">Voting Percentage</h5>
-                                            <div google-chart chart="getVotesPrecentageObj(voting)" style="height:600px; width:100%;"></div>
-                                            <div google-chart chart="getResultsVotesPrecentageObj(voting)" style="height:600px; width:100%;"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="ml-3 grey-font">Voting Percentage:</label>
+                                            <div google-chart chart="getVotesPrecentageObj(voting)"></div>
+                                           <!-- <div google-chart chart="getResultsVotesPrecentageObj(voting)"></div>-->
                                         </div>
                                     </div>
                                    <div class="row">
