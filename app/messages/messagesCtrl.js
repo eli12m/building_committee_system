@@ -9,6 +9,8 @@ app.controller( "messagesCtrl", function( $scope, $location, messagesService, lo
     
     var msgToDel                              = null;
     var msgToUpd                              = null;
+    $scope.filterInTitleDetailsInput          = "";
+    $scope.orderByInput                       = "creationDate";
     $scope.filterMessagesByTitleAndDetailFunc = function( message ){
         var res = false;
         var str = $scope.filterInTitleDetailsInput;
@@ -68,9 +70,6 @@ app.controller( "messagesCtrl", function( $scope, $location, messagesService, lo
 
         return { "bold-style": !res };
     }
-
-    $scope.filterInTitleDetailsInput = "";
-    $scope.orderByInput              = "creationDate";
 
     messagesService.loadMessagesMethod().then( function( messages ){
         $scope.messages = messages;

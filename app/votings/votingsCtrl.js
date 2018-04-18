@@ -1,6 +1,7 @@
 app.controller( "votingsCtrl", function( $scope, loginService, votingsService, tenantsService ){    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
     $scope.optVoteSelection =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
+    $scope.filterInTitleDetailsInput = "";   
     $scope.isShowBtn = function(){
         return loginService.isLoginTenantCommitteeMemberMethod();
     }
@@ -83,6 +84,14 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
 
         return { "bold-style": !res };
     }
+    $scope.filterEndedVotingByTitleAndDetailFunc = function( endedVoting ){
+        var res = false;
+        var str = $scope.filterInTitleDetailsInput;
+
+        res = endedVoting.isTitleIncludeStr( str ) || endedVoting.isDetailsIncludeStr( str );
+
+        return res;
+    };
 
     /*This is only for check that the graph appear when we do a function.
       Please pay attention that there is a problem with counter var: the counter var is a var that
@@ -133,6 +142,11 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
     votingsService.loadVotingsMethod().then( function( votings ){
         $scope.votings = votings;
     }, function( votings ){
+        alert( "Error:" );/*todo: to cangethat*/ 
+    });
+    votingsService.loadEndedVotingsMethod().then( function( endedVotings ){
+        $scope.endedVotings = endedVotings;
+    }, function( endedVotings ){
         alert( "Error:" );/*todo: to cangethat*/ 
     });
     tenantsService.loadTenantsMethod().then( function( tenants ){
