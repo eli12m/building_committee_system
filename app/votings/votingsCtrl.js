@@ -1,4 +1,6 @@
-app.controller( "votingsCtrl", function( $scope, loginService, votingsService, tenantsService ){    
+app.controller( "votingsCtrl", function( $scope, loginService, votingsService, tenantsService, dateService ){    
+   var votingToEnd = "";   
+   
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
     $scope.optVoteSelection =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
     $scope.filterInTitleDetailsInput = "";   
@@ -91,6 +93,41 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         res = endedVoting.isTitleIncludeStr( str ) || endedVoting.isDetailsIncludeStr( str );
 
         return res;
+    };
+    $scope.endVotingFunc = function(){
+        if( votingToEnd != null )
+        {
+            votingsService.endVotingMethod( votingToEnd );
+
+            votingToEnd = "";
+        }
+    }
+    $scope.whichModalToShow = function( voting ){
+        var resModal = "";
+
+        if( !dateService.isDatePassMethod( voting.getEndDate() ) )
+        {
+            resModal = "#alertModal";
+        }
+        else
+        {
+            resModal = "";
+        }
+
+        return resModal;
+    };
+    $scope.endEndedNotEndedVotingFunc = function( voting ){
+
+        if( dateService.isDatePassMethod( voting.getEndDate() ) )
+        {
+            votingsService.endVotingMethod( voting );
+
+            votingToEnd = "";
+        }
+        else
+        {
+            votingToEnd = voting;
+        }
     };
 
     /*This is only for check that the graph appear when we do a function.

@@ -1,7 +1,7 @@
 app.factory( "votingsService", function( $http, $q, votesService ){
     var votings               = [];
     var endedVotings          = [];
-    var counter               = 3; /*todo: to change this that it will be read from json and not hard coded*/
+    var counter               = 6; /*todo: to change this that it will be read from json and not hard coded*/
     var loadEndedVotingsFlag  = false;
     var loadVotingsFlag       = false;
     
@@ -179,9 +179,40 @@ app.factory( "votingsService", function( $http, $q, votesService ){
         return asyncLoad.promise;
     }
 
+    function rmvVotingFunc( l_votings, voting )
+    {
+        var id         = voting.getId();
+        var i          = 0;
+        var idx_to_rmv = -1;
+
+        for( i = 0; i < l_votings.length; i++ )
+        {
+            if( id === l_votings[i].getId() )
+            {
+                idx_to_rmv = i;
+                break;
+            }
+        }
+
+        if( idx_to_rmv > -1 )
+        {
+            l_votings.splice( idx_to_rmv, 1 );  
+        }
+    }
+
+    function endVotingFunc( voting )
+    {
+        if( voting != null )
+        {
+            endedVotings.push( voting );
+            rmvVotingFunc( votings, voting );
+        }
+    }
+
     return{
         loadVotingsMethod: loadVotingsFunc,
         addVoteToVotingMethod: addVoteToVotingFunc,
-        loadEndedVotingsMethod: loadEndedVotingsFunc
+        loadEndedVotingsMethod: loadEndedVotingsFunc,
+        endVotingMethod: endVotingFunc
     };
 });

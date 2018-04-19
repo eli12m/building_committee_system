@@ -37,7 +37,21 @@ app.factory( "dateService", function(){
         return todayStr;
     }
 
+    function isDatePassFunc( endDate )
+    {
+        var today = new Date();
+        var res   = false;
+
+        if( today >= endDate )
+        {
+            res = true;
+        }
+
+        return res;
+    }
+
     return{
-        getCurDateyyyymmddMethod: getCurDateyyyymmddFunc
+        getCurDateyyyymmddMethod: getCurDateyyyymmddFunc,
+        isDatePassMethod: isDatePassFunc
     }
 });
