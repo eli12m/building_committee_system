@@ -1,5 +1,5 @@
 app.factory( "dateService", function(){
-    function getCurDateyyyymmddFunc()
+    function getCurDateyyyymmddFunc( incMonth )
     {
         var today  = null;
         var todayStr = "";
@@ -10,6 +10,9 @@ app.factory( "dateService", function(){
         var year   = 2018;
 
         today  = new Date();
+
+        today.setMonth( today.getMonth() + incMonth );
+
         day    = today.getDate();
         month  = today.getMonth()+1; //January is 0!
         year   = today.getFullYear();

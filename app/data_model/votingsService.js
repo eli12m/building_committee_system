@@ -1,4 +1,4 @@
-app.factory( "votingsService", function( $http, $q, votesService ){
+app.factory( "votingsService", function( $http, $q, votesService, dateService ){
     var votings               = [];
     var endedVotings          = [];
     var counter               = 6; /*todo: to change this that it will be read from json and not hard coded*/
@@ -209,10 +209,22 @@ app.factory( "votingsService", function( $http, $q, votesService ){
         }
     }
 
+    function createNewVotingFunc( votingTitleStr, votingDetailsStr, endDateStr )
+    {
+        var newVoting            = null;
+                        
+        counter++;
+
+        newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, endDateStr, [] );
+
+        votings.push( newVoting );   
+    }
+
     return{
         loadVotingsMethod: loadVotingsFunc,
         addVoteToVotingMethod: addVoteToVotingFunc,
         loadEndedVotingsMethod: loadEndedVotingsFunc,
-        endVotingMethod: endVotingFunc
+        endVotingMethod: endVotingFunc,
+        createNewVotingMethod: createNewVotingFunc
     };
 });

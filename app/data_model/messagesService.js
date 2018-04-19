@@ -132,7 +132,7 @@ app.factory( "messagesService", function( $http, $q, dateService, loginService )
         
         counter++;
 
-        todayStr = dateService.getCurDateyyyymmddMethod();
+        todayStr = dateService.getCurDateyyyymmddMethod( 0 );
 
         newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority, [] );
 

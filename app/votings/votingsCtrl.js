@@ -129,6 +129,19 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
             votingToEnd = voting;
         }
     };
+    $scope.cancelVotingFunc = function(){
+        initInputsVoting();
+    };
+    $scope.createVotingFunc = function(){
+        votingsService.createNewVotingMethod( $scope.votingTitleInput, $scope.votingDetailsInput, $scope.votingEndDateInput );
+        initInputsVoting();
+    };
+
+    function initInputsVoting(){
+        $scope.votingTitleInput         = "";
+        $scope.votingDetailsInput       = "";
+        $scope.votingEndDateInput       = dateService.getCurDateyyyymmddMethod( 1 );
+    }
 
     /*This is only for check that the graph appear when we do a function.
       Please pay attention that there is a problem with counter var: the counter var is a var that
@@ -175,7 +188,7 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         return myChartObject;
     }*/
 
-
+    initInputsVoting();
     votingsService.loadVotingsMethod().then( function( votings ){
         $scope.votings = votings;
     }, function( votings ){
