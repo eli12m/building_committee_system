@@ -97,7 +97,11 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
     $scope.endVotingFunc = function(){
         if( votingToEnd != null )
         {
-            votingsService.endVotingMethod( votingToEnd );
+            var curDate = new Date();
+
+            votingToEnd.setEndDate( curDate );
+
+            votingsService.mvVotingToEndedVotingsFromVotingsMethod( votingToEnd );
 
             votingToEnd = "";
         }
@@ -120,7 +124,7 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
 
         if( dateService.isDatePassMethod( voting.getEndDate() ) )
         {
-            votingsService.endVotingMethod( voting );
+            votingsService.mvVotingToEndedVotingsFromVotingsMethod( voting );
 
             votingToEnd = "";
         }

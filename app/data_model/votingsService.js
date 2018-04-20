@@ -200,7 +200,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         }
     }
 
-    function endVotingFunc( voting )
+    function mvVotingToEndedVotingsFromVotingsFunc( voting )
     {
         if( voting != null )
         {
@@ -224,7 +224,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         loadVotingsMethod: loadVotingsFunc,
         addVoteToVotingMethod: addVoteToVotingFunc,
         loadEndedVotingsMethod: loadEndedVotingsFunc,
-        endVotingMethod: endVotingFunc,
+        mvVotingToEndedVotingsFromVotingsMethod: mvVotingToEndedVotingsFromVotingsFunc,
         createNewVotingMethod: createNewVotingFunc
     };
 });
