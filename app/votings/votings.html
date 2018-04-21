@@ -53,14 +53,19 @@
                                         <div class="col-lg-3">
                                             <label class="ml-3 grey-font">End Date:</label>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6" ng-hide="isShowBtn()">
                                             <label class="ml-3">{{voting.getEndDate() | date}}</label>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-6" ng-show="isShowBtn()">
+                                            <input type="date" id="endDate" class="form-control ml-3" ng-model="endDateInput.endDate"
+                                            placeholder="yyyy-MM-dd" min="2001-01-01" ng-change="setNewEndDate(voting)">
+                                        </input>
+                                        </div>
+                                        <!--<div class="col-lg-2">
                                             <button type="button" class="btn btn-info ml-3" ng-if="isShowBtn()">
                                                 <i class="fa  fa-2x fa-calendar"></i>
                                             </button>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <!--todo:to do the dynamic select option. How I do that?-->
                                     <div class="form-group row mt-3" ng-show="isNeedToVote(voting)">
@@ -212,13 +217,17 @@
                             <label class="col-form-label">End Date:</label>
                         </div>
                         <div class="col-md-7">
-                            <label class="col-form-label">{{votingEndDateInput | date}}</label>
+                            <input type="date" id="endDate" class="form-control" ng-model="votingEndDateInput"
+                            placeholder="yyyy-MM-dd" min="2001-01-01">
                         </div>
-                        <div class="col-md-3">
+                        <!--<div class="col-md-7">
+                            <label class="col-form-label">{{votingEndDateInput | date}}</label>
+                        </div>-->
+                        <!--<div class="col-md-3">
                             <button type="button" class="btn btn-danger">
                                 <i class="fa  fa-2x fa-calendar"></i>
                             </button>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <!-- Modal footer -->

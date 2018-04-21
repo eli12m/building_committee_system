@@ -3,7 +3,19 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
     $scope.optVoteSelection =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
-    $scope.filterInTitleDetailsInput = "";   
+    $scope.endDateInput = { endDate: new Date() };
+    $scope.filterInTitleDetailsInput = "";
+    $scope.endDateInit = function( voting )
+    {
+        $scope.endDateInput = voting.getEndDate();
+    }
+    $scope.setNewEndDate = function( voting )
+    {
+        if( $scope.endDateInput.endDate != null )
+        {
+            voting.setEndDate( $scope.endDateInput.endDate );
+        }  
+    }  
     $scope.isShowBtn = function(){
         return loginService.isLoginTenantCommitteeMemberMethod();
     }
@@ -142,9 +154,16 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
     };
 
     function initInputsVoting(){
+        var today                       = null;
+
         $scope.votingTitleInput         = "";
         $scope.votingDetailsInput       = "";
-        $scope.votingEndDateInput       = dateService.getCurDateyyyymmddMethod( 1 );
+
+        today  = new Date();
+
+        today.setMonth( today.getMonth() + 1 );
+
+        $scope.votingEndDateInput       = today;
     }
 
     /*This is only for check that the graph appear when we do a function.

@@ -5,12 +5,12 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
     var loadEndedVotingsFlag  = false;
     var loadVotingsFlag       = false;
     
-    function Voting( id, title, details, endDate, votes )
+    function Voting( id, title, details, endDateStr, votes )
     {
         this.id                = id;
         this.title             = title;
         this.details           = details;
-        this.endDate           = new Date( endDate );
+        this.endDate           = new Date( endDateStr );
         this.votes             = votes;
         this.getId             = function(){ return this.id; }
         this.getTitle          = function(){ return this.title; }
@@ -209,14 +209,15 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         }
     }
 
-    function createNewVotingFunc( votingTitleStr, votingDetailsStr, endDateStr )
+    function createNewVotingFunc( votingTitleStr, votingDetailsStr, endDateObj )
     {
         var newVoting            = null;
                         
         counter++;
 
-        newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, endDateStr, [] );
+        newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, "2018-04-15", [] );
 
+        newVoting.setEndDate( endDateObj );
         votings.push( newVoting );   
     }
 
