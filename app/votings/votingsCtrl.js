@@ -41,7 +41,35 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         votingsService.addVoteToVotingMethod( voting, emailActiveTenant, selectedVoteOpt );
     }
     $scope.getResultsVotesPrecentageObj = function( voting ){
-        var numTenantsVoteFirstOpt    = voting.getVotesOpt( "In Favor" );
+        var optsVotes                 = voting.getOptVotes();
+        var numTenantsVotesOpts       = [];
+        var i                         = 0;
+        var resultsVotesPrecentageObj = {};
+
+        for( i = 0; i < optsVotes.length; i++ )
+        {
+            var numTenantVotesOpt = 0;
+
+            numTenantVotesOpt = voting.getVotesOpt( optsVotes[i] );
+
+            numTenantsVotesOpts.push( numTenantVotesOpt );
+        }
+
+        resultsVotesPrecentageObj.type = "PieChart";
+        resultsVotesPrecentageObj.data = {
+            "cols": [ {id: "i", label: "Vote Options", type: "string"},
+                      {id: "v", label: "Votes", type: "number"} ],
+            "rows": []
+        };
+
+        for( i = 0; i < optsVotes.length; i++ )
+        {
+            var rowObj = {c: [{v:optsVotes[i]}, {v:numTenantsVotesOpts[i]}]};
+
+            resultsVotesPrecentageObj.data.rows.push( rowObj );
+        }
+
+        /*var numTenantsVoteFirstOpt    = voting.getVotesOpt( "In Favor" );
         var numTenantsVoteSecondOpt   = voting.getVotesOpt( "Against" );
         var resultsVotesPrecentageObj = {};
 
@@ -50,10 +78,10 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
             "cols": [ {id: "i", label: "In Favor/Against", type: "string"},
                       {id: "v", label: "Votes", type: "number"} ],
             "rows": [ {c: [{v:"In Favor"}, {v:numTenantsVoteFirstOpt}]}, {c: [{v:"Against"}, {v:numTenantsVoteSecondOpt}]}]
-        };
+        };*/
 
         resultsVotesPrecentageObj.options = {
-            'title': 'In Favor/Against',
+            'title': 'Vote Options Results',
             'is3D': true,
         };
 
