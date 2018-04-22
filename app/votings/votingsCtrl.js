@@ -191,6 +191,11 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         $scope.votingOpts[0].optionVal  = "";
         $scope.votingOpts[1].optionVal  = "";
 
+        while( $scope.votingOpts.length > 2 )
+        {
+            $scope.votingOpts.pop();
+        }
+
         today  = new Date();
 
         today.setMonth( today.getMonth() + 1 );
