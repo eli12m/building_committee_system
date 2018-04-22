@@ -5,7 +5,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
     var loadEndedVotingsFlag  = false;
     var loadVotingsFlag       = false;
     
-    function Voting( id, title, details, endDateStr, votes )
+    function Voting( id, title, details, endDateStr, votes, optVotes )
     {
         this.id                = id;
         this.title             = title;
@@ -13,6 +13,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         this.endDate           = new Date( endDateStr );
         this.votes             = votes;
         this.draftVote         = "";
+        this.optVotes          = optVotes;
         this.getId             = function(){ return this.id; }
         this.getTitle          = function(){ return this.title; }
         this.setTitle          = function( title ){ this.title = title; }
@@ -23,6 +24,8 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         this.getVotes          = function(){ return this.votes; }
         this.setVotes          = function( votes ){ this.votes = votes; }
         this.getDraftVote      = function(){ return this.draftVote; }
+        this.getOptVotes       = function(){ return this.optVotes;}
+        this.setOptVotes       = function( optVotes ){ this.optVotes = optVotes; }
         this.isTitleIncludeStr = function( str )
         {  
             var title = this.getTitle();
@@ -42,6 +45,14 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         this.copyVotesArr = function( votes )
         {
             this.votes = votesService.cloneVotesArrMethod( votes );  
+        }
+        this.addOptVoteToVoting = function( optVoteStr )
+        {
+            this.optVotes.push( optVoteStr );
+        }
+        this.copyOptVotesArr = function( optVotes )
+        {
+            this.optVotes = optVotes.slice();
         }
         this.isTenantVotedOnVoting = function( voterStr )
         {
@@ -120,7 +131,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
                 votings.splice( 0, votings.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    votings.push( new Voting( parseInt( response.data[i].votingId ), response.data[i].title, response.data[i].details, response.data[i].endDate, votesService.cloneVotesArrMethod( response.data[i].votes ) ) );
+                    votings.push( new Voting( parseInt( response.data[i].votingId ), response.data[i].title, response.data[i].details, response.data[i].endDate, votesService.cloneVotesArrMethod( response.data[i].votes ), response.data[i].optVotes.slice() ) );
                 }
         
                 asyncLoad.resolve( votings );
@@ -165,7 +176,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
                 endedVotings.splice( 0, endedVotings.length );
 
                 for( i = 0; i < response.data.length; i++ ){
-                    endedVotings.push( new Voting( parseInt( response.data[i].votingId ), response.data[i].title, response.data[i].details, response.data[i].endDate, votesService.cloneVotesArrMethod( response.data[i].votes ) ) );
+                    endedVotings.push( new Voting( parseInt( response.data[i].votingId ), response.data[i].title, response.data[i].details, response.data[i].endDate, votesService.cloneVotesArrMethod( response.data[i].votes ), response.data[i].optVotes.slice() ) );
                 }
         
                 asyncLoad.resolve( endedVotings );
@@ -216,8 +227,8 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         var newVoting            = null;
                         
         counter++;
-
-        newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, "2018-04-15", [] );
+        /*todo: to change the array of optvotes clone of the arg*/
+        newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, "2018-04-15", [], [] );
 
         newVoting.setEndDate( endDateObj );
         votings.push( newVoting );   

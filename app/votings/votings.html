@@ -72,9 +72,9 @@
                                         <!--todo: to change to ng-if-->
                                         <label for="voteOptions" class="ml-3 grey-font col-lg-3 col-form-label">Your vote:</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="voteOptions" ng-model="voting.draftVote" ng-disabled="isDisableBtn(voting)">
-                                                <option value="In Favor">In Favor</option>
-                                                <option value="Against">Against</option>
+                                            <select class="form-control" id="voteOptions" ng-model="voting.draftVote" ng-disabled="isDisableBtn(voting)" ng-options="item for item in voting.optVotes">
+                                                <!--<option value="In Favor">In Favor</option>
+                                                <option value="Against">Against</option>-->
                                             </select>
                                         </div>
                                         <div class="col-lg-2">
