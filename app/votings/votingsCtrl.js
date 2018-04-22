@@ -183,6 +183,8 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
 
         $scope.votingTitleInput         = "";
         $scope.votingDetailsInput       = "";
+        $scope.votingOpts[0].optionVal  = "";
+        $scope.votingOpts[1].optionVal  = "";
 
         today  = new Date();
 
