@@ -213,19 +213,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="votingOpts0" class="col-md-2 col-form-label">Options</label>
+                        <label for="votingOpts-0" class="col-md-2 col-form-label">Options</label>
                         <div class="col-md-10" >
-                            <div  ng-repeat="votingOpt in votingOpts">
-                                <input type="text" class="form-control" id="votingOpts-{{votingOpts.indexOf(votingOpt)}}" ng-model="votingOpt.optionVal"><br />
+                            <div ng-repeat="votingOpt in votingOpts">
+                                <input type="text" class="form-control" id="votingOpts-{{votingOpts.indexOf(votingOpt)}}" ng-model="votingOpt.optionVal"><br/>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label class="col-form-label">End Date:</label>
-                        </div>
+                    <div class="form-group row">
+                        <label for="votingEndDate" class="col-md-2 col-form-label">End Date:</label>
                         <div class="col-md-7">
-                            <input type="date" id="endDate" class="form-control" ng-model="votingEndDateInput"
+                            <input type="date" id="votingEndDate" class="form-control" ng-model="votingEndDateInput"
                             placeholder="yyyy-MM-dd" min="2001-01-01">
                         </div>
                         <!--<div class="col-md-7">
