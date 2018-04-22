@@ -212,6 +212,14 @@
                             <textarea class="form-control" id="votingDetails" maxlength="500" ng-model = "votingDetailsInput"></textarea>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="votingOpts0" class="col-md-2 col-form-label">Options</label>
+                        <div class="col-md-10" >
+                            <div  ng-repeat="votingOpt in votingOpts">
+                                <input type="text" class="form-control" id="votingOpts-{{votingOpts.indexOf(votingOpt)}}" ng-model="votingOpt.optionVal"><br />
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-2">
                             <label class="col-form-label">End Date:</label>
