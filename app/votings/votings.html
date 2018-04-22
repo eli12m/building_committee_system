@@ -57,8 +57,8 @@
                                             <label class="ml-3">{{voting.getEndDate() | date}}</label>
                                         </div>
                                         <div class="col-lg-6" ng-show="isShowBtn()">
-                                            <input type="date" id="endDate" class="form-control ml-3" ng-model="endDateInput.endDate"
-                                            placeholder="yyyy-MM-dd" min="2001-01-01" ng-change="setNewEndDate(voting)">
+                                            <input type="date" id="endDate" class="form-control ml-3" ng-model="voting.endDate"
+                                            placeholder="yyyy-MM-dd" min="2001-01-01">
                                         </input>
                                         </div>
                                         <!--<div class="col-lg-2">

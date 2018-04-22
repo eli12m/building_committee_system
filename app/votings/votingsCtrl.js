@@ -2,20 +2,8 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
    var votingToEnd = "";   
    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
-    $scope.optVoteSelection =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
-    $scope.endDateInput = { endDate: new Date() };
+    $scope.optVoteSelection          =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
     $scope.filterInTitleDetailsInput = "";
-    $scope.endDateInit = function( voting )
-    {
-        $scope.endDateInput = voting.getEndDate();
-    }
-    $scope.setNewEndDate = function( voting )
-    {
-        if( $scope.endDateInput.endDate != null )
-        {
-            voting.setEndDate( $scope.endDateInput.endDate );
-        }  
-    }  
     $scope.isShowBtn = function(){
         return loginService.isLoginTenantCommitteeMemberMethod();
     }
