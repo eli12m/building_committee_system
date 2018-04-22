@@ -2,7 +2,7 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
    var votingToEnd = "";   
    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
-    $scope.optVoteSelection          =  { mode: "In Favor" };/*todo: to change that when it is dynamic*/
+    /*$scope.optVoteSelection          =  { mode: "In Favor" };*//*todo: to change that when it is dynamic*/
     $scope.filterInTitleDetailsInput = "";
     $scope.isShowBtn = function(){
         return loginService.isLoginTenantCommitteeMemberMethod();
@@ -35,7 +35,7 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
         var selectedVoteOpt   = "";
 
-        selectedVoteOpt = $scope.optVoteSelection.mode;
+        selectedVoteOpt = voting.getDraftVote();
 
         votingsService.addVoteToVotingMethod( voting, emailActiveTenant, selectedVoteOpt );
     }

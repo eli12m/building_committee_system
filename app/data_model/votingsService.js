@@ -12,6 +12,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         this.details           = details;
         this.endDate           = new Date( endDateStr );
         this.votes             = votes;
+        this.draftVote         = "";
         this.getId             = function(){ return this.id; }
         this.getTitle          = function(){ return this.title; }
         this.setTitle          = function( title ){ this.title = title; }
@@ -21,6 +22,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         this.setEndDate        = function( endDate ){ this.endDate = endDate; }
         this.getVotes          = function(){ return this.votes; }
         this.setVotes          = function( votes ){ this.votes = votes; }
+        this.getDraftVote      = function(){ return this.draftVote; }
         this.isTitleIncludeStr = function( str )
         {  
             var title = this.getTitle();
