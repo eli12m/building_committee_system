@@ -20,11 +20,17 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="messageImage" class="col-md-2 col-form-label">Image URL:</label>
+        <label for="messageImage" class="col-md-2 col-form-label">Image:</label>
         <div class="col-md-6">
-            <input type="text" class="form-control" id="messageImage" placeholder="Image URL" ng-model = "messageImageInput">
+            <input type="file" class="form-control" id="messageImage" ng-model = "messageImageInput" accept="image/*" app-filereader>
         </div>
         <div class="col-md-4">
             <img class="img-property" ng-src="{{messageImageInput}}" alt="Image preview" > 
         </div>
+        <!--<div class="col-md-6">
+            <input type="text" class="form-control" id="messageImage" placeholder="Image URL" ng-model = "messageImageInput">
+        </div>
+        <div class="col-md-4">
+            <img class="img-property" ng-src="{{messageImageInput}}" alt="Image preview" > 
+        </div>-->
     </div>
