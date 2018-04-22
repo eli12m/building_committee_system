@@ -47,3 +47,7 @@
 .bold-style{
     font-weight: bold;
 }
+
+.nopadding{
+    padding: 0;
+}

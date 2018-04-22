@@ -177,6 +177,11 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         votingsService.createNewVotingMethod( $scope.votingTitleInput, $scope.votingDetailsInput, $scope.votingEndDateInput, optVals );
         initInputsVoting();
     };
+    $scope.addNewVoteOptionFunc = function(){
+        var newOptVal = {optionVal: ""};
+
+        $scope.votingOpts.push( newOptVal );
+    }
 
     function initInputsVoting(){
         var today                       = null;
