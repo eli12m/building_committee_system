@@ -227,7 +227,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         var newVoting            = null;
                         
         counter++;
-        /*todo: to change the array of optvotes clone of the arg*/
+        
         newVoting = new Voting( counter, votingTitleStr, votingDetailsStr, "2018-04-15", [], optVotes );
 
         newVoting.setEndDate( endDateObj );

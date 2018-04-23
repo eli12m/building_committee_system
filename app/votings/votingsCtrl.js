@@ -1,5 +1,13 @@
-app.controller( "votingsCtrl", function( $scope, loginService, votingsService, tenantsService, dateService ){    
-   var votingToEnd = "";   
+app.controller( "votingsCtrl", function( $scope, $location, loginService, votingsService, tenantsService, dateService ){    
+   
+   // This is an authorization check. If the user is not logged going back to the home screen
+   if( !loginService.isLoginMethod() )
+   {
+       $location.path("/login");
+       return;
+   }
+   
+    var votingToEnd = "";   
    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
     /*$scope.optVoteSelection          =  { mode: "In Favor" };*//*todo: to change that when it is dynamic*/
@@ -9,36 +17,55 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
         return loginService.isLoginTenantCommitteeMemberMethod();
     }
     $scope.isDisableBtn = function( voting ){
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         var res               = false;
 
-        res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
+            res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        }
 
         return res;
     }
     $scope.isNeedToVote = function( voting ){
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         var res               = false;
 
-        res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
+            res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        }
 
         return !res;
     }
     $scope.getTenantVotedOpt = function( voting ){
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         var voteOptStr        = "";
 
-        voteOptStr = voting.getVotedOptByTenant( emailActiveTenant );
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
+            voteOptStr = voting.getVotedOptByTenant( emailActiveTenant );
+        }
 
         return voteOptStr;
     }
     $scope.subTenantVoteOpt = function( voting ){
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         var selectedVoteOpt   = "";
 
-        selectedVoteOpt = voting.getDraftVote();
-
-        votingsService.addVoteToVotingMethod( voting, emailActiveTenant, selectedVoteOpt );
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
+            selectedVoteOpt = voting.getDraftVote();
+            votingsService.addVoteToVotingMethod( voting, emailActiveTenant, selectedVoteOpt );
+        }
     }
     $scope.getResultsVotesPrecentageObj = function( voting ){
         var optsVotes                 = voting.getOptVotes();
@@ -108,10 +135,15 @@ app.controller( "votingsCtrl", function( $scope, loginService, votingsService, t
     }
     /*todo: the next func is called after we do logout and the active tenant is null so we get in the debugger error. To ask if it is ok that it is called in that time and to show the error and if it is ok to do null check.*/
     $scope.showBoldStyleVotingFunc = function( voting ){
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         var res               = false;
         
-        res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
+            res = voting.isTenantVotedOnVoting( emailActiveTenant );
+        }
 
         return { "bold-style": !res };
     }

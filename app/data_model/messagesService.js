@@ -128,16 +128,22 @@ app.factory( "messagesService", function( $http, $q, dateService, loginService )
     {
         var newMsg            = null;
         var todayStr          = "";
-        var emailActiveTenant = loginService.getActiveTenantMethod().getEmail();
+        var actvTenant        = loginService.getActiveTenantMethod();
+        var emailActiveTenant = "";
         
-        counter++;
+        if( actvTenant != null )
+        {
+            emailActiveTenant = actvTenant.getEmail();
 
-        todayStr = dateService.getCurDateyyyymmddMethod( 0 );
+            counter++;
 
-        newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority, [] );
+            todayStr = dateService.getCurDateyyyymmddMethod( 0 );
 
-        newMsg.addReaderToMsg( emailActiveTenant );
-        messages.push( newMsg );
+            newMsg = new Message( counter, messageTitle, todayStr, messageImage, messageDetails, messagePriority, [] );
+
+            newMsg.addReaderToMsg( emailActiveTenant );
+            messages.push( newMsg );
+        }
     }
 
     function updMessageFunc( message, messageTitle, messageDetails, messagePriority, messageImage )
