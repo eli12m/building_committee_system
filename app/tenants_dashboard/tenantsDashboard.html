@@ -60,7 +60,7 @@
             <div class="row mt-3" ng-controller="votingsCtrl" >
                 <div class="col-md-12">
                     <div id="accordion2">
-                        <div class="card" ng-repeat="voting in votings">
+                        <div class="card" ng-repeat="voting in votings | filter:isNeedToVote">
                             <div class="card-header" id="vteheading-{{voting.getId()}}">
                                 <div class="row">
                                     <div class="col-sm-12">
