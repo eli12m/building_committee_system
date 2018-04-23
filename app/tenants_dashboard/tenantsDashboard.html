@@ -11,7 +11,7 @@
             <div class="row mt-3" ng-controller="messagesCtrl">
                 <div class="col-md-12">
                     <div id="accordion">
-                        <div class="card" ng-repeat="message in messages | filter:filterMessagesByTitleAndDetailFunc | orderBy:orderByInput:orderDirection()">
+                        <div class="card" ng-repeat="message in messages | orderBy:'creationDate':orderDirection()">
                             <div class="card-header" id="heading-{{message.getId()}}">
                                 <div class="row">
                                     <div class="col-sm-11">

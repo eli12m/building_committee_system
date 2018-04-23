@@ -75,7 +75,7 @@ app.controller( "messagesCtrl", function( $scope, $location, messagesService, lo
 
         return { "bold-style": !res };
     }
-
+    
     messagesService.loadMessagesMethod().then( function( messages ){
         $scope.messages = messages;
     }, function( messages ){
