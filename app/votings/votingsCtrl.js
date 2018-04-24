@@ -11,6 +11,7 @@ app.controller( "votingsCtrl", function( $scope, $location, loginService, voting
    
     /*We did it as object and not a string because the ng-model was updated only in that way when the user select option in the view*/
     /*$scope.optVoteSelection          =  { mode: "In Favor" };*//*todo: to change that when it is dynamic*/
+    $scope.endedVotings              = [];
     $scope.filterInTitleDetailsInput = "";
     $scope.votingOpts = [{optionVal: ""}, {optionVal: ""}];
     $scope.isShowBtn = function(){
@@ -213,6 +214,26 @@ app.controller( "votingsCtrl", function( $scope, $location, loginService, voting
         var newOptVal = {optionVal: ""};
 
         $scope.votingOpts.push( newOptVal );
+    }
+    $scope.checkIfEndedVotesExist = function(){
+        var res = false;
+
+        if( $scope.endedVotings.length > 0 )
+        {
+            res = true;
+        }
+
+        return res;
+    }
+    $scope.checkIfExistAtLeastNumOfEndedVotes = function( num ){
+        var res = false;
+        
+        if( $scope.endedVotings.length - num >= 0 )
+        {
+            res = true;
+        }
+
+        return res;
     }
 
     function initInputsVoting(){
