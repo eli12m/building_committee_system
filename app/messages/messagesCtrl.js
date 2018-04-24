@@ -83,10 +83,15 @@ app.controller( "messagesCtrl", function( $scope, $location, messagesService, lo
     });
 
     function initInputsMessage(){
-        $scope.messageTitleInput         = "";
-        $scope.messageDetailsInput       = "";
-        $scope.messagePriorityInput      = "Important";
-        $scope.messageImageInput         = "/assets/images/messages/placeholder.png"; 
+        $scope.messageTitleInput          = "";
+        $scope.messageDetailsInput        = "";
+        $scope.messagePriorityInput       = "Important";
+        $scope.messageImageInput          = "/assets/images/messages/placeholder.png";
+
+        /* we did this to clear the file name in the file input box */
+        if( angular.element( document.querySelector( '#messageImage' )).length > 0 ) {
+            angular.element( document.querySelector('#messageImage' ))[0].value='';
+       }
     }
 
     initInputsMessage();
