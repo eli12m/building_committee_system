@@ -11,7 +11,7 @@ app.controller( "loginCtrl", function( $scope, $location, loginService, tenantsS
                     $scope.invalidCredentails = false;
                     
                     loginService.setActiveTenantMethod( tenantObj );
-                    $location.path("/messages");
+                    $location.path("/tenants_dashboard");
                 }
                 else
                 {
