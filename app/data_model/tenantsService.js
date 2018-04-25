@@ -148,7 +148,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
         var async     = $q.defer();
         var tenantObj = null;
 
-        $http.get("/app/Tenants/tenants.json").then(
+        $http.get("app/Tenants/tenants.json").then(
             function( response ) 
             {
                 for (var i = 0; i < response.data.length; i++) {
