@@ -121,7 +121,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         {
             loadVotingsFlag = true;
 
-            $http.get( "app/votings/votings.json" ).then( function( response ){
+            $http.get( "/app/votings/votings.json" ).then( function( response ){
                 //on success
                 var i = 0;
 
@@ -166,7 +166,7 @@ app.factory( "votingsService", function( $http, $q, votesService, dateService ){
         {
             loadEndedVotingsFlag = true;
 
-            $http.get( "app/votings/endedVotings.json" ).then( function( response ){
+            $http.get( "/app/votings/endedVotings.json" ).then( function( response ){
                 //on success
                 var i = 0;
 

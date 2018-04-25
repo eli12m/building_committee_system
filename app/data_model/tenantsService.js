@@ -70,7 +70,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
         {
             loadTenantsFlag = true;
 
-            $http.get( "app/tenants/tenants.json" ).then( function( response ){
+            $http.get( "/app/tenants/tenants.json" ).then( function( response ){
                 //on success
                 var i = 0;
 
@@ -148,7 +148,7 @@ app.factory( "tenantsService", function( $http, $q, $log ){
         var async     = $q.defer();
         var tenantObj = null;
 
-        $http.get("app/Tenants/tenants.json").then(
+        $http.get("/app/Tenants/tenants.json").then(
             function( response ) 
             {
                 for (var i = 0; i < response.data.length; i++) {

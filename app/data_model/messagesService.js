@@ -77,7 +77,7 @@ app.factory( "messagesService", function( $http, $q, dateService, loginService )
         {
             loadMessagesFlag = true;
 
-            $http.get( "app/messages/messages.json" ).then( function( response ){
+            $http.get( "/app/messages/messages.json" ).then( function( response ){
                 //on success
                 var i = 0;
 
